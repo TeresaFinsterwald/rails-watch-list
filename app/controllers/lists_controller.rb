@@ -5,6 +5,7 @@ class ListsController < ApplicationController
 
   def show
     @list = List.find(params[:id])
+    @movies = @list.movies
   end
 
   def new
@@ -13,7 +14,7 @@ class ListsController < ApplicationController
 
   def create
     @list = List.new(params_list)
-    @list.safe
+    @list.save
 
     redirect_to list_path(@list)
   end
@@ -21,6 +22,6 @@ class ListsController < ApplicationController
   private
 
   def params_list
-    params.require :list.permit(:name)
+    params.require(:list).permit(:name)
   end
 end
