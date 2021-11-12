@@ -1,7 +1,29 @@
-<h1>All List</h1>
-<ul>
-  <% @lists.each do |list| %>
-  <li><%= link_to list.name, list_path(list) %></li>
-  <% end %>
-</ul>
-<p><%=link_to "Add list", new_list_path%></p>
+<div class="navbar">
+  <h1>Movielist</h1>
+  <div class="buttons">
+    <button><%=link_to "Add list", new_list_path%></button>
+    <button><%= link_to "All lists", lists_path %></button>
+  </div>
+</div>
+
+<div class="banner">
+  <h1>Save any kind of movies</h1>
+  <h3>Your nice ordered watchlist</h3>
+</div>
+
+<div class="container">
+  <div class="index-header">
+    <h3>All List</h3>
+    <button><%=link_to "Add list", new_list_path%></button>
+  </div>
+
+    <ul class= "list cards">
+      <% @lists.each do |list| %>
+       <div class="card-category" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url(https://raw.githubusercontent.com/lewagon/fullstack-images/master/uikit/breakfast.jpg)">
+          <li><%= link_to list.name, list_path(list) %></li>
+        </div>
+      <% end %>
+    </ul>
+
+  </div>
+</div>

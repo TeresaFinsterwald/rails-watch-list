@@ -1,11 +1,35 @@
-<h1><%=@list.name%></h1>
-<h3><%= @movies.count %></h3>
-<% @movies.each do |movie| %>
-<% bookmark = Bookmark.find_by(list: @list, movie: movie) %>
-<li><%= movie.title %> <%= link_to "Remove", bookmark_path(bookmark), method: :delete, data: { confirm: "Are you sure?" } %>
-</li>
-<% end %>
+<div class="navbar">
+  <h1>Movielist</h1>
+  <div class="buttons">
+    <button><%=link_to "Add list", new_list_path%></button>
+    <button><%= link_to "All lists", lists_path %></button>
+  </div>
+</div>
 
+<div class="banner">
+  <h1><%= @list.name %></h1>
+  <h3>Your nice ordered watchlist</h3>
+</div>
 
-<%= link_to "Add a movie", new_list_bookmark_path(@list) %>
-<%= link_to "All lists", lists_path %>
+<div class="container">
+  <div class="header">
+      <button><%= link_to "Add a movie", new_list_bookmark_path(@list) %></button>
+  </div>
+  <ul class="list cards">
+    <% @movies.each do |movie| %>
+      <% url = movie.poster_url %>
+      <div class="card-movie">
+        <% bookmark = Bookmark.find_by(list: @list, movie: movie) %>
+        <li><%=image_tag url, width: 100 %></li>
+        <div class="card-movie-text">
+          <li><p> <strong><%= movie.title %> </strong> </p></li>
+          <li><p><%= movie.overview %></p></li>
+          <div class="card-movie-bottom">
+            <li><p><%= bookmark.comment %></li>
+            <li></p><%= link_to "Delete", bookmark_path(bookmark), method: :delete %></li>
+          </div>
+        </div>
+      </div>
+    <% end %>
+  </ul>
+</div>
